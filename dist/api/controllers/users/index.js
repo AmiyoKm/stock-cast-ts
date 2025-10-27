@@ -3,6 +3,7 @@ import { Password } from '../../../models/users/index.js';
 import { MailerService } from '../../../services/mailer/index.js';
 import { TokenScope, TokenService } from '../../../services/tokens/index.js';
 import { UserService } from '../../../services/users/index.js';
+import { cleanUser } from '../../../lib/utils/users.js';
 export class UserController {
     constructor() {
         this.userService = new UserService();
@@ -20,7 +21,7 @@ export class UserController {
                 userID: user.id,
                 frontendURL: process.env.FRONTEND_PROD_URL
             });
-            res.status(202).json({ user, token });
+            res.status(202).json({ user: cleanUser(user) });
         }
         catch (err) {
             res.status(400).json({ error: err.message });
@@ -49,7 +50,7 @@ export class UserController {
             user.activated = true;
             const updatedUser = await this.userService.update(user);
             await this.tokenService.deleteAllForUser(TokenScope.Activation, user.id);
-            res.status(200).json({ user: updatedUser });
+            res.status(200).json({ user: cleanUser(updatedUser) });
         }
         catch (err) {
             res.status(400).json({ error: err?.message });
@@ -106,6 +107,10 @@ export class UserController {
         catch (err) {
             res.status(400).json({ error: err.message });
         }
+    }
+    async getMe(req, res) {
+        const user = req.user;
+        res.status(200).json({ user: cleanUser(user) });
     }
     generateToken(user) {
         const claims = {

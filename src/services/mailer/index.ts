@@ -1,6 +1,6 @@
 
 import nodemailer from 'nodemailer';
-import { type User } from '../../models/users/index.ts';
+import { type User } from '../../models/users/index.js';
 import { readFileSync } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';

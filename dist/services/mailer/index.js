@@ -16,7 +16,7 @@ export class MailerService {
         });
     }
     async send(user, templateFile, data) {
-        const templateContent = readFileSync(path.resolve(__dirname, `../../templates/${templateFile}`), 'utf-8');
+        const templateContent = readFileSync(path.resolve(__dirname, `../../../templates/${templateFile}`), 'utf-8');
         const subjectMatch = templateContent.match(/{{define "subject"}}\s*(.*?)\s*{{end}}/s);
         const plainBodyMatch = templateContent.match(/{{define "plainBody"}}\s*(.*?)\s*{{end}}/s);
         const htmlBodyMatch = templateContent.match(/{{define "htmlBody"}}\s*(.*?)\s*{{end}}/s);

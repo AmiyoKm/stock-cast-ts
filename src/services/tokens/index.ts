@@ -1,5 +1,5 @@
 
-import pool from '../../db/index.ts';
+import pool from '../../db/index.js';
 import crypto from 'crypto';
 
 export enum TokenScope {

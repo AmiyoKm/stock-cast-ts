@@ -15,13 +15,3 @@ export class Password {
         return await bcrypt.compare(plaintextPassword, this.hash);
     }
 }
-export const AnonymousUser = {
-    id: 0,
-    name: '',
-    email: '',
-    password: new Password('', ''),
-    activated: false,
-    created_at: new Date(),
-    updated_at: new Date(),
-    version: 0,
-};

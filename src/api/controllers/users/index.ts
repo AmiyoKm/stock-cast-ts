@@ -1,11 +1,11 @@
 
 import { type Request, type Response } from 'express';
 import jwt from 'jsonwebtoken';
-import { Password, type User } from '../../../models/users/index.ts';
-import { MailerService } from '../../../services/mailer/index.ts';
-import { TokenScope, TokenService } from '../../../services/tokens/index.ts';
-import { UserService } from '../../../services/users/index.ts';
-import { cleanUser } from '../../../lib/utils/users.ts';
+import { Password, type User } from '../../../models/users/index.js';
+import { MailerService } from '../../../services/mailer/index.js';
+import { TokenScope, TokenService } from '../../../services/tokens/index.js';
+import { UserService } from '../../../services/users/index.js';
+import { cleanUser } from '../../../lib/utils/users.js';
 
 export class UserController {
     private userService: UserService;

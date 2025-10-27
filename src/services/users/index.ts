@@ -1,7 +1,7 @@
 
 import crypto from 'crypto';
-import pool from '../../db/index.ts';
-import { Password, type User } from '../../models/users/index.ts';
+import pool from '../../db/index.js';
+import { Password, type User } from '../../models/users/index.js';
 
 const PQ_DUPLICATE_EMAIL = '23505';
 

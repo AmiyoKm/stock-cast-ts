@@ -1,8 +1,8 @@
 
 import { Router } from 'express';
-import { UserController } from '../../controllers/users/index.ts';
-import { requireAuth } from '../../middlewares/auth.ts';
-import { validate } from '../../middlewares/validate.ts';
+import { UserController } from '../../controllers/users/index.js';
+import { requireAuth } from '../../middlewares/auth.js';
+import { validate } from '../../middlewares/validate.js';
 import {
   activateUserSchema,
   forgotPasswordSchema,
@@ -10,7 +10,7 @@ import {
   registerUserSchema,
   resendActivationSchema,
   resetPasswordSchema,
-} from '../../validators/users.ts';
+} from '../../validators/users.js';
 
 const router = Router();
 const userController = new UserController();

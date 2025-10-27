@@ -1,6 +1,6 @@
 
-import pool from '../../db/index.ts';
-import { type Stock } from '../../models/stocks/index.ts';
+import pool from '../../db/index.js';
+import { type Stock } from '../../models/stocks/index.js';
 
 export const getHistory = async (tradingCode: string, start: Date, end: Date): Promise<Stock[]> => {
   const query = `SELECT id, date, trading_code, ltp, high, low, openp, closep, ycp, trade, value, volume

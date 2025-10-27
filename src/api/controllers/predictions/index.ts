@@ -1,6 +1,6 @@
 
 import { type Request, type Response, type NextFunction } from 'express';
-import * as predictionService from '../../../services/predictions/index.ts';
+import * as predictionService from '../../../services/predictions/index.js';
 
 export const getPredictions = async (req: Request, res: Response, next: NextFunction) => {
   try {

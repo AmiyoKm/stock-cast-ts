@@ -1,22 +1,12 @@
-
 import { Router } from 'express';
 import * as stockController from '../../controllers/stocks/index.js';
 import { requireAuth } from '../../middlewares/auth.js';
 import { validate } from '../../middlewares/validate.js';
-import {
-    createFavoriteStockSchema,
-    getStockByIDSchema,
-    removeFavoriteStockSchema,
-} from '../../validators/stocks.js';
-
+import { createFavoriteStockSchema, getStockByIDSchema, removeFavoriteStockSchema, } from '../../validators/stocks.js';
 const router = Router();
-
 router.get('/', stockController.getStocks);
-
 router.get('/favorite', requireAuth, stockController.getFavoriteStocks);
 router.post('/favorite', requireAuth, validate(createFavoriteStockSchema), stockController.createFavoriteStock);
 router.delete('/favorite', requireAuth, validate(removeFavoriteStockSchema), stockController.removeFavoriteStock);
-
 router.get('/:tradingCodeID', validate(getStockByIDSchema), stockController.getStockByID);
-
 export default router;

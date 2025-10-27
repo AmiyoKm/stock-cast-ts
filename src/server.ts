@@ -1,12 +1,12 @@
 import cors from 'cors';
 import express from 'express';
-import { authenticate } from './api/middlewares/auth.ts';
+import { authenticate } from './api/middlewares/auth.js';
 import {
     errorHandler,
     notFound,
-} from './api/middlewares/errorHandler.ts';
-import { rateLimiter } from './api/middlewares/rateLimit.ts';
-import routes from './api/routes/index.ts';
+} from './api/middlewares/errorHandler.js';
+import { rateLimiter } from './api/middlewares/rateLimit.js';
+import routes from './api/routes/index.js';
 
 const app = express();
 const port = process.env.PORT || 8080;
