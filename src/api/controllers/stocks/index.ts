@@ -11,7 +11,7 @@ export const getStocks = async (req: Request, res: Response, next: NextFunction)
     }
 };
 
-export const getStockByID = async (req: Request, res: Response, next: NextFunction) => {
+export const getStockHistoryByID = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { tradingCodeID } = req.params;
         let { start, end } = req.query;
@@ -32,8 +32,19 @@ export const getStockByID = async (req: Request, res: Response, next: NextFuncti
             endDate = new Date();
         }
 
-        const stock = await stockService.getStockByID(tradingCodeID, startDate, endDate);
-        res.json(stock);
+        const stocks = await stockService.getStockHistoryByID(tradingCodeID, startDate, endDate);
+        res.json({ stocks: stocks });
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const getStockByID = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { tradingCodeID } = req.params;
+
+        const stock = await stockService.getStockByID(tradingCodeID);
+        res.json({ stock: stock });
     } catch (error) {
         next(error);
     }
@@ -44,7 +55,7 @@ export const getFavoriteStocks = async (req: Request, res: Response, next: NextF
         const { id } = req.user;
 
         const stocks = await stockService.getFavoriteStocks(id);
-        res.json(stocks);
+        res.json({ stocks });
     } catch (error) {
         next(error);
     }
@@ -53,8 +64,8 @@ export const getFavoriteStocks = async (req: Request, res: Response, next: NextF
 export const createFavoriteStock = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { id } = req.user;
-        const { tradingCode } = req.body;
-        await stockService.createFavoriteStock(tradingCode, id);
+        const { trading_code } = req.body;
+        await stockService.createFavoriteStock(trading_code, id);
         res.status(201).send();
     } catch (error) {
         next(error);
@@ -64,8 +75,8 @@ export const createFavoriteStock = async (req: Request, res: Response, next: Nex
 export const removeFavoriteStock = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { id } = req.user;
-        const { tradingCode } = req.body;
-        await stockService.removeFavoriteStock(tradingCode, id);
+        const { trading_code } = req.body;
+        await stockService.removeFavoriteStock(trading_code, id);
         res.status(204).send();
     } catch (error) {
         next(error);

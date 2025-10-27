@@ -6,6 +6,7 @@ import { validate } from '../../middlewares/validate.js';
 import {
     createFavoriteStockSchema,
     getStockByIDSchema,
+    getStockHistoryByIDSchema,
     removeFavoriteStockSchema,
 } from '../../validators/stocks.js';
 
@@ -18,5 +19,6 @@ router.post('/favorite', requireAuth, validate(createFavoriteStockSchema), stock
 router.delete('/favorite', requireAuth, validate(removeFavoriteStockSchema), stockController.removeFavoriteStock);
 
 router.get('/:tradingCodeID', validate(getStockByIDSchema), stockController.getStockByID);
+router.get('/:tradingCodeID/history', validate(getStockHistoryByIDSchema), stockController.getStockHistoryByID);
 
 export default router;

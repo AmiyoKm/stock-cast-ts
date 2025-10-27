@@ -10,7 +10,7 @@ export const getStocks = async () => {
         tradingCode: row.trading_code,
     }));
 };
-export const getStockByID = async (tradingCode, start, end) => {
+export const getStockHistoryByID = async (tradingCode, start, end) => {
     const query = `SELECT id, date, trading_code, ltp, high, low, openp, closep, ycp, trade, value, volume
               FROM stock_history
               WHERE trading_code = $1 AND date >= $2 AND date <= $3
@@ -20,6 +20,21 @@ export const getStockByID = async (tradingCode, start, end) => {
         ...row,
         tradingCode: row.trading_code,
     }));
+};
+export const getStockByID = async (tradingCode) => {
+    const query = `
+        SELECT id, date, trading_code, ltp, high, low, openp, closep, ycp, trade, value, volume
+        FROM stock_history
+        WHERE trading_code = $1 AND date = (SELECT MAX(date) FROM stock_history WHERE trading_code = $1)
+        `;
+    const { rows } = await pool.query(query, [tradingCode]);
+    if (rows.length === 0) {
+        throw new Error(`Stock with trading code ${tradingCode} not found`);
+    }
+    return {
+        ...rows[0],
+        tradingCode: rows[0].trading_code,
+    };
 };
 export const getFavoriteStocks = async (userID) => {
     const query = `
