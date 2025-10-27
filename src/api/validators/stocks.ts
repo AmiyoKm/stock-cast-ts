@@ -6,8 +6,8 @@ export const getStockByIDSchema = z.object({
     tradingCodeID: z.string(),
   }),
   query: z.object({
-    start: z.string().datetime().optional(),
-    end: z.string().datetime().optional(),
+    start: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+    end: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
   }),
 });
 

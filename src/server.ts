@@ -16,6 +16,11 @@ app.use(rateLimiter);
 app.use(express.json());
 app.use(authenticate)
 
+app.use((req, res, next) => {
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+    next();
+});
+
 app.use('/v1', routes);
 
 app.get('/', (req, res) => {
