@@ -23,7 +23,7 @@ export class MailerService {
     }
 
     async send(user: User, templateFile: string, data: any) {
-        const templateContent = readFileSync(path.resolve(__dirname, `../../templates/${templateFile}`), 'utf-8');
+        const templateContent = readFileSync(path.resolve(__dirname, `../../../templates/${templateFile}`), 'utf-8');
 
         const subjectMatch = templateContent.match(/{{define "subject"}}\s*(.*?)\s*{{end}}/s);
         const plainBodyMatch = templateContent.match(/{{define "plainBody"}}\s*(.*?)\s*{{end}}/s);
