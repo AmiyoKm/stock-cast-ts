@@ -1,0 +1,11 @@
+import { Router } from 'express';
+import { UserController } from '../../controllers/users/index.js';
+const router = Router();
+const userController = new UserController();
+router.post('/register', (req, res) => userController.register(req, res));
+router.post('/login', (req, res) => userController.login(req, res));
+router.post('/activate', (req, res) => userController.activate(req, res));
+router.post('/resend-activation', (req, res) => userController.sendActivationEmail(req, res));
+router.post('/forgot-password', (req, res) => userController.createPassword(req, res));
+router.post('/reset-password', (req, res) => userController.updatePassword(req, res));
+export default router;
