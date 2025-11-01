@@ -1,23 +1,28 @@
-import * as predictionService from '../../../services/predictions/index.js';
+import * as predictionService from "../../../services/predictions/index.js";
 export const getPredictions = async (req, res, next) => {
     try {
-        const { tradingCode, nhead } = req.body;
+        const { tradingCode, nhead, model } = req.body;
         const endDate = new Date();
         const startDate = new Date();
         startDate.setMonth(startDate.getMonth() - 4);
         const stockHistory = await predictionService.getHistory(tradingCode, startDate, endDate);
         if (stockHistory.length < 60) {
-            return res.status(404).json({ message: 'Not enough historical data to make a prediction.' });
+            return res
+                .status(404)
+                .json({
+                message: "Not enough historical data to make a prediction.",
+            });
         }
-        const predictorURL = process.env.PREDICTOR_URL || 'http://predictor:8000';
+        const predictorURL = process.env.PREDICTOR_URL || "http://predictor:8000";
         const response = await fetch(`${predictorURL}/api/predict`, {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
             },
             body: JSON.stringify({
                 tradingCode,
                 nhead: parseInt(nhead, 10),
+                model,
                 history: stockHistory,
             }),
         });

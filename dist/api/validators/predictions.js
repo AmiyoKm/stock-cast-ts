@@ -9,5 +9,6 @@ export const getPredictionsSchema = z.object({
             z.literal(15),
             z.literal(30),
         ]),
+        model: z.enum(["StockCast/seperate", "StockCast/unified"]),
     }),
 });
